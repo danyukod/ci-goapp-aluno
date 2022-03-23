@@ -1,12 +1,16 @@
 name: ci-golang-workflow
-on: [push]
+on:
+  push:
+    branches:
+      - master
 jobs:
-  check-application:
+   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
-        with:
-          go-version: 1.15
-      - run: go test
-      - run: go run math.go
+      - name: Install dependencies
+        uses: actions/setup-go@v1
+      - name: Run tests
+        run: |
+          go test -v ./...
+      - name: Run tests with
